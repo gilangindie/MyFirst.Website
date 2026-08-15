@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fantasy Adventure Quest</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Fantasy Adventure Quest</h1>
+        <div id="story">You awaken in a misty forest. A path splits ahead: left to the dark cave or right to the enchanted river. What do you choose?</div>
+        <div id="choices">
+            <button onclick="choose('left')">Go left to the cave</button>
+            <button onclick="choose('right')">Go right to the river</button>
+        </div>
+        <div id="inventory">Inventory: Empty</div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #2c3e50, #34495e);
+    color: #ecf0f1;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    max-width: 600px;
+    padding: 20px;
+    background: rgba(61, 77, 199, 0.7);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+#story {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+#choices button {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+#choices button:hover {
+    background: #c0392b;
+}
+
+#inventory {
+    margin-top: 20px;
+    font-size: 1em;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #2c3e50, #34495e);
+    color: #ecf0f1;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    max-width: 600px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+#story {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+#choices button {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+#choices button:hover {
+    background: #c0392b;
+}
+
+#inventory {
+    margin-top: 20px;
+    font-size: 1em;
+}
+
+let inventory = [];
+
+function choose(option) {
+    const storyDiv = document.getElementById('story');
+    const choicesDiv = document.getElementById('choices');
+    const inventoryDiv = document.getElementById('inventory');
+
+    choicesDiv.innerHTML = ''; // Clear previous choices
+
+    if (option === 'left') {
+        storyDiv.textContent = 'You enter the cave and find a glowing sword! You take it. Now, do you fight the dragon or sneak past?';
+        inventory.push('Sword');
+        choicesDiv.innerHTML = '<button onclick="choose(\'fight\')">Fight the dragon</button><button onclick="choose(\'sneak\')">Sneak past</button>';
+    } else if (option === 'right') {
+        storyDiv.textContent = 'You reach the river and spot a hidden bridge. Cross it or swim?';
+        choicesDiv.innerHTML = '<button onclick="choose(\'cross\')">Cross the bridge</button><button onclick="choose(\'swim\')">Swim</button>';
+    } else if (option === 'fight') {
+        storyDiv.textContent = 'With your sword, you defeat the dragon! You win the treasure. Adventure complete!';
+    } else if (option === 'sneak') {
+        storyDiv.textContent = 'You sneak past, but the dragon notices. You barely escape. Try again!';
+        choicesDiv.innerHTML = '<button onclick="reset()">Restart</button>';
+    } else if (option === 'cross') {
+        storyDiv.textContent = 'Safe crossing! You find a village. Quest successful!';
+    } else if (option === 'swim') {
+        storyDiv.textContent = 'The current is strong—you drown. Game over!';
+        choicesDiv.innerHTML = '<button onclick="reset()">Restart</button>';
+    }
+
+    inventoryDiv.textContent = 'Inventory: ' + (inventory.length ? inventory.join(', ') : 'Empty');
+}
+
+function reset() {
+    location.reload(); // Simple reset
+}
